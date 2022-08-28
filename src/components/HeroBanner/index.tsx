@@ -1,12 +1,19 @@
 interface HeroBannerProps {
   _type: string;
+  fields: {
+    title: string;
+    subtitle: string;
+  };
 }
 
-const HeroBanner = () => {
+const HeroBanner = (props: HeroBannerProps) => {
   return (
-    <div>This is a hero banner</div>
+    <div>
+      <h1>{props.fields.title}</h1>
+      <p>{props.fields.subtitle}</p>
+    </div>
   );
 };
 
 export default HeroBanner;
-export type { HeroBanner };
+export type { HeroBannerProps };

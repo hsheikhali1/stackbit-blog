@@ -8,11 +8,10 @@ import { getAllPageSlugs, getPage } from "./api/contentful";
 export type Props = {
   page: types.Page & {
     fields: types.Page;
-  }
+  };
 };
 
 const Page: React.FC<Props> = ({ page }) => {
-  console.log(page);
   return (
     <>
       <Head>
@@ -31,28 +30,28 @@ export default Page;
 
 export const getStaticPaths = async () => {
   const slugs = await getAllPageSlugs();
+  console.log(slugs);
 
   const paths = slugs.map((slug) => {
     return {
       params: {
-        slug: [slug],
-      }
-    }
+        slug: slug.split("/"),
+      },
+    };
   });
-
   return {
     paths,
     fallback: false,
-  }
+  };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const slug = params?.slug as string;
-  const page = await getPage(slug);
+  const slug = params?.slug as string[];
+  const page = await getPage(slug.join("/"));
 
   return {
     props: {
       page,
-    }
-  }
+    },
+  };
 };
